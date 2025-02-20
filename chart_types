@@ -1,0 +1,148 @@
+
+---
+
+### **1️⃣ Bar Chart (Best for Counting Events)**
+**Use case:**  
+- Compare **how many missiles were fired per target**  
+- Show **frequency of missile types used**  
+
+**Example:**  
+- "How many missiles were needed to destroy each target?"  
+- "Which missile type was used most often?"  
+
+**Matplotlib Code:**
+```python
+def plot_missile_usage(df, missile_column, target_column):
+    """
+    Bar Chart: Number of missiles fired per target.
+    """
+    missile_counts = df.groupby(target_column)[missile_column].count()
+
+    plt.figure(figsize=(10, 6))
+    missile_counts.plot(kind='bar', color='skyblue', edgecolor='black')
+    plt.title("Number of Missiles Used Per Target")
+    plt.xlabel("Target")
+    plt.ylabel("Missile Count")
+    plt.xticks(rotation=45)
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+    plt.show()
+```
+---
+
+### **2️⃣ Histogram (Best for Distribution Analysis)**
+**Use case:**  
+- Check **how many missiles it typically takes to destroy a target**  
+- Show the **distribution of hit rates**  
+
+**Example:**  
+- "How many targets were destroyed with 1, 2, 3... missiles?"  
+- "What is the most common number of missiles fired before a kill?"  
+
+**Matplotlib Code:**
+```python
+def plot_missile_distribution(df, missile_count_column):
+    """
+    Histogram: Shows the distribution of missile usage per target.
+    """
+    plt.figure(figsize=(10, 6))
+    plt.hist(df[missile_count_column], bins=range(1, df[missile_count_column].max() + 2), color='green', edgecolor='black')
+    plt.title("Distribution of Missiles Used Per Target")
+    plt.xlabel("Missiles Fired")
+    plt.ylabel("Frequency")
+    plt.grid(axis='y', linestyle='--', alpha=0.7)
+    plt.show()
+```
+---
+
+### **3️⃣ Pie Chart (Best for Proportions)**
+**Use case:**  
+- Compare **types of missiles used**  
+- Show **percentage of successful hits vs. misses**  
+
+**Example:**  
+- "What percentage of attacks used AIM-120 vs AIM-9?"  
+- "What proportion of missile shots resulted in a kill?"  
+
+**Matplotlib Code:**
+```python
+def plot_missile_proportions(df, missile_column):
+    """
+    Pie Chart: Shows the proportion of missile types used.
+    """
+    missile_counts = df[missile_column].value_counts()
+
+    plt.figure(figsize=(8, 8))
+    plt.pie(missile_counts, labels=missile_counts.index, autopct='%1.1f%%', startangle=140, colors=['skyblue', 'orange', 'green', 'red'])
+    plt.title("Proportion of Missile Types Used")
+    plt.show()
+```
+---
+
+### **4️⃣ Line Chart (Best for Trends Over Time)**
+**Use case:**  
+- Track **missile usage over time**  
+- Analyze **kill effectiveness across different engagements**  
+
+**Example:**  
+- "How has missile hit accuracy changed over multiple simulations?"  
+- "How many missiles were fired per minute during a battle?"  
+
+**Matplotlib Code:**
+```python
+def plot_missile_trends(df, time_column, missile_column):
+    """
+    Line Chart: Shows missile usage over time.
+    """
+    missile_counts = df.groupby(time_column)[missile_column].count()
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(missile_counts.index, missile_counts.values, marker='o', linestyle='-')
+    plt.title("Missile Usage Over Time")
+    plt.xlabel("Time")
+    plt.ylabel("Missile Count")
+    plt.grid(True, linestyle='--', alpha=0.7)
+    plt.show()
+```
+---
+
+### **5️⃣ Scatter Plot (Best for Correlation & Outliers)**
+**Use case:**  
+- Check **if more advanced missiles need fewer shots to destroy a target**  
+- Identify **outliers where excessive missiles were used**  
+
+**Example:**  
+- "Do certain missile types result in fewer shots per kill?"  
+- "Are there any targets that required an abnormally high number of missiles?"  
+
+**Matplotlib Code:**
+```python
+def plot_missile_vs_kills(df, missile_column, target_column):
+    """
+    Scatter Plot: Shows relationship between missile type and shots required per kill.
+    """
+    plt.figure(figsize=(10, 6))
+    plt.scatter(df[missile_column], df[target_column], color='red', alpha=0.6)
+    plt.title("Missiles Fired vs Targets Destroyed")
+    plt.xlabel("Missile Type")
+    plt.ylabel("Shots Per Target")
+    plt.grid(True, linestyle='--', alpha=0.7)
+    plt.show()
+```
+---
+
+## **Summary Table**
+| Chart Type       | Best For |
+|------------------|---------|
+| **📊 Bar Chart** | Counting missiles per target |
+| **📉 Histogram** | Distribution of missile shots per kill |
+| **🥧 Pie Chart** | Proportion of missile types or outcomes |
+| **📈 Line Chart** | Missile usage trends over time |
+| **⚫ Scatter Plot** | Correlation between missile type & kill effectiveness |
+
+---
+### **Which one should you use?**
+✅ **If you need a general overview:** Use a **bar chart**  
+✅ **If you're studying missile effectiveness:** Use a **scatter plot**  
+✅ **If you want to analyze trends:** Use a **line chart**  
+✅ **If you need to compare proportions:** Use a **pie chart**  
+✅ **If you want to check distributions:** Use a **histogram**  
